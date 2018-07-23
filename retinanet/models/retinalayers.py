@@ -178,6 +178,8 @@ def PyramidFeatures152():
     return PyramidFeatures(Bottleneck, [3, 8, 36, 3])
 
 
+
+
 def test_fms():
     net = PyramidFeatures50()
     fms = net( torch.randn(1,3,600,300) )
@@ -202,6 +204,7 @@ def test_cls():
         # [N,9*20,H,W] -> [N,H,W,9*20] -> [N,H*W*9,20
         out = clss(fm)
         print(fm.shape, out.shape )
+
 
 # test_fms()
 # test_loc
