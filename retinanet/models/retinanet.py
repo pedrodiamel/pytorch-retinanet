@@ -6,7 +6,6 @@ import torch.utils.model_zoo as model_zoo
 
 from . import utils
 from .retinalayers import PyramidFeatures50, ClassificationModel, RegressionModel
-from .boxfilter import FilterDetections
 from .anchors import Anchors, AnchorParameters
 
 model_urls = {
@@ -16,7 +15,6 @@ model_urls = {
     'resnet101': 'https://download.pytorch.org/models/resnet101-5d3b4d8f.pth',
     'resnet152': 'https://download.pytorch.org/models/resnet152-b121ed2d.pth',
 }
-
 
 class RetinaNet(nn.Module):
     
@@ -45,7 +43,6 @@ class RetinaNet(nn.Module):
                 layer.eval()
 
 
-
 def retinanet50( pretrained=False, **kwargs):
     """Constructs for Retinanet model.
     Args:
@@ -55,26 +52,3 @@ def retinanet50( pretrained=False, **kwargs):
     if pretrained:
         model.load_state_dict(model_zoo.load_url(model_urls['resnet50']), strict=False)
     return model
-
-
-
-
-
-
-
-def test():
-    net = RetinaNet()
-    
-    loc_preds, cls_preds = net( Variable( torch.randn( 2,3,224,224 )) )
-    
-    print(loc_preds.size())
-    print(cls_preds.size())
-
-    loc_grads = Variable(torch.randn(loc_preds.shape))
-    cls_grads = Variable(torch.randn(cls_preds.shape))
-    loc_preds.backward(loc_grads, retain_graph=True)
-    cls_preds.backward(cls_grads)
-    
-
-
-# test()
