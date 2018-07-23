@@ -1,5 +1,3 @@
-
-
 import torch
 
 def one_hot_embedding(labels, num_classes):

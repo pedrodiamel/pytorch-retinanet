@@ -5,7 +5,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 from .utils import one_hot_embedding
 
-
 class FocalLoss(nn.Module):
     def __init__(self, num_classes=20):
         super(FocalLoss, self).__init__()
@@ -93,7 +92,4 @@ class FocalLoss(nn.Module):
         print('loc_loss: %.3f | cls_loss: %.3f' % (loc_loss.data[0]/num_pos.float(), cls_loss.data[0]/num_pos.float()), end=' | ')
         loss = (loc_loss+cls_loss)/num_pos.float()
         return loss
-
-
-
 
