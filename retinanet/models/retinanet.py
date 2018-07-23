@@ -52,3 +52,26 @@ def retinanet50( pretrained=False, **kwargs):
     if pretrained:
         model.load_state_dict(model_zoo.load_url(model_urls['resnet50']), strict=False)
     return model
+
+
+
+
+
+
+
+def test():
+    net = RetinaNet()
+    
+    loc_preds, cls_preds = net( Variable( torch.randn( 2,3,224,224 )) )
+    
+    print(loc_preds.size())
+    print(cls_preds.size())
+
+    loc_grads = Variable(torch.randn(loc_preds.shape))
+    cls_grads = Variable(torch.randn(cls_preds.shape))
+    loc_preds.backward(loc_grads, retain_graph=True)
+    cls_preds.backward(cls_grads)
+    
+
+
+# test()
